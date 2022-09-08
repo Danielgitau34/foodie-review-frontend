@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import logo from "/home/sharon/Development/code/phase-3/foodie-review/src/logo.jpeg";
 import RestaurantList from './RestaurantList';
+import RestaurantCard from './RestaurantCard';
 
 
 
@@ -15,7 +16,7 @@ function App() {
   const filterItems = (restaurant) => {
     setActiveRestaurant(restaurant);
     if (restaurant === "all") {
-      setRestaurantItems();
+      setRestaurantItems(restaurantItems);
       return;
     }
     const newItems = restaurantItems.filter((item) => item.name === restaurant);
@@ -42,6 +43,7 @@ function App() {
           activeRestaurant={activeRestaurant}
           filterItems={filterItems}
            />
+           <RestaurantCard items={restaurantItems}/>
         </section>
       </main>
       
