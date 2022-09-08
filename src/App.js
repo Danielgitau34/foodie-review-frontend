@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import logo from "public/logo.jpeg";
+import logo from "/home/sharon/Development/code/phase-3/foodie-review/src/logo.jpeg";
 
 function App() {
+  const [restaurantItems, setRestaurantItems] = useState([]);
+  
+
+  useEffect(() => {
+    fetch("http://localhost:9293/restaurants")
+    .then((r) => r.json())
+    .then((restaurantItems) => setRestaurantItems(restaurantItems))
+  }, []);
+
   return (
     <div>
       <main>
