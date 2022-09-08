@@ -12,10 +12,10 @@ function RestaurantCard({items}) {
             <div className="item-info">
               <header>
                 <h4>{name}</h4>
-                <h4 className="price">${price_range}</h4>
+                <h4 className="price">{price_range}</h4>
               </header>
-              <p className="item-text">
-              {cuisine}   {location}</p>
+              <p className="item-text">Cuisine: {cuisine}</p>
+              <p className="item-text">Location: {location}</p>
             </div>
           </article>
         );

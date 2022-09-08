@@ -5,13 +5,18 @@ import RestaurantList from './RestaurantList';
 import RestaurantCard from './RestaurantCard';
 
 
+//const allRestaurants = ["all", ...new Set(restaurantItems.map((item) => item.name))]
 
-function App() {
+const App = () => {
   const [restaurantItems, setRestaurantItems] = useState([]);
   const [activeRestaurant, setActiveRestaurant] = useState("");
 
-  const allRestaurants = ["all", ...new Set(restaurantItems.map((item) => item.name))];
+  const allRestaurants = ["all", ...new Set(restaurantItems.map((item) => item.name))]
   const [restaurantNames, setRestaurantNames] = useState(allRestaurants);
+
+  console.log(allRestaurants)
+
+  console.log(restaurantNames)
 
   const filterItems = (restaurant) => {
     setActiveRestaurant(restaurant);
@@ -39,7 +44,7 @@ function App() {
             <div className='underline'></div>
           </div>
           <RestaurantList
-          restaurantNames={restaurantNames}
+          restaurantNames={allRestaurants}
           activeRestaurant={activeRestaurant}
           filterItems={filterItems}
            />
