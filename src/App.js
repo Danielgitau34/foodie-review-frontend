@@ -1,8 +1,7 @@
 import './App.css';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import RestaurantCard from './RestaurantCard';
-import Restaurant from './Restaurant';
-import Restaurants from './Restaurants';
+import Restaurant from './Restaurant/Restaurant';
+import Restaurants from './Restaurants/Restaurants';
 
 
 const App = () => {
@@ -11,7 +10,7 @@ const App = () => {
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<Restaurants/>}></Route>
-      <Route path='/restaurants/:id' element={<RestaurantCard />}></Route>
+      <Route path='/restaurants/:id' element={<Restaurant />}></Route>
     </Routes>
     </BrowserRouter>
   )
