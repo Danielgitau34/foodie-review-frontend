@@ -1,18 +1,26 @@
 import React from 'react'
 import img from '/home/sharon/Development/code/phase-3/foodie-review/src/restaurant.jpg'
 import { BrowserRouter, Link } from 'react-router-dom'
+import RestaurantCard from './RestaurantCard'
 
 function Restaurant({props}) {
   return (
-    <div className='card'>
-        <div className='restaurant-image'>
-            <img src={img} alt={props.name}></img>
-        </div>
-        <div className='restaurant-name'>{props.name}</div>
-        <div className='restaurant-rating'>{props.price_range}</div>
+    <div className='section-center'>
+        <article key={props.id} className="menu-item">
+        <img src={img} alt={props.name} className="photo"></img>
+        <div className='item-info'>
+        <header>
+        <h4>{props.name}</h4>
+        <h4 className="price">{props.price_range}</h4>
+         </header>
+         <p className="item-text">Cuisine: {props.cuisine}</p>
+         <p className="item-text">Location: {props.location}</p>
         <div className='restaurant-link'>
-            <Link to={`/restaurants/${props.id}`}>View Restaurant</Link>
+         <Link to={`/restaurants/${props.id}`}>View Restaurant
+         </Link>
         </div>
+        </div>
+        </article>
       
     </div>
   )

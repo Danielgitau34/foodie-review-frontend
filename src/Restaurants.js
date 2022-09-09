@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Restaurant from './Restaurant'
+import RestaurantCard from './RestaurantCard'
+import logo from "/home/sharon/Development/code/phase-3/foodie-review/src/logo.jpeg"
 
 function Restaurants() {
  const [restaurants, setRestaurants] = useState([])
@@ -13,21 +15,26 @@ function Restaurants() {
  const grid = restaurants.map( item => {
     //const { id, name, image, cuisine, price_range, location, website } = item;
     return (
-    <Restaurant 
-    key={item.id}
-    props = {item}
-    />
+    <><Restaurant
+            key={item.id}
+            props={item} /><RestaurantCard key={item.id} props={item}/></>
     )})
 
   return (
-    <div className='home'>
-    <div className='header'>
-    <h1>Nairobi Foodie Review</h1>
-    <div className='subheader'>Honest, unbiased restaurant reviews</div>
-    </div>
-    <div className='grid'>
-      {grid}
-    </div>
+    <div>
+        <main>
+            <section className='restaurant section'>
+             <div className='title'>
+             <img src={logo} alt="logo" className='logo'/>
+                <h2>Nairobi Foodie Review</h2>
+                <div className='subheader'>Honest, unbiased restaurant reviews</div>
+                <div className='underline'></div>
+            </div>
+                 <div className='grid'>
+                      {grid}
+                 </div>
+             </section>
+         </main>
     </div>
   )
 }
