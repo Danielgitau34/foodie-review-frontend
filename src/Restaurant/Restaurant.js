@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Header from './Header'
 import styled from 'styled-components'
@@ -47,10 +47,19 @@ function Restaurant(props) {
     .then((data) => setRestaurant(data))
     .catch( data => console.log('Error', data) )
 }, [id])
-  console.log(restaurant)
+  console.log(restaurant.review)
+
+  const handleChange = (e) => {
+
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
 
   return( 
   <Wrapper>
+    <Fragment>
     <Column>
     <Main>
      <Header restaurant = {restaurant}/>
@@ -58,8 +67,14 @@ function Restaurant(props) {
     </Main>
     </Column>
     <Column>
-      <div className='review-form'>Review form goes here</div>
+      <ReviewForm 
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        restaurant={restaurant}
+        review={review}
+      />
     </Column>
+    </Fragment>
     </Wrapper>
   )
 

@@ -27,7 +27,12 @@ const ScoreOutOf = styled.div`
 
 function Header({restaurant}) {
     const{id, name, cuisine, price_range, location, reviews, website } = restaurant
-    console.log(reviews.map(review => review.rating))
+    console.log(reviews)
+    //reviews.forEach(review => {
+      //  for (let key in review) {
+      //      console.log(`${key}: ${review[key]}`)
+      //  }
+  //  });
   return (
     <Wrapper>
       <h1>{name}</h1>
