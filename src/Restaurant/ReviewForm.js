@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styled from 'styled-components'
 
 const RatingContainer = styled.div`
@@ -113,28 +113,36 @@ const Error = styled.div`
   text-align:center;
   padding: 4px;
 `
-function ReviewForm(props) {
-    console.log(props.restaurant.reviews)
+function ReviewForm({restaurant, review, setRating, handleChange, handleSubmit }) {
+
+    const ratingOptions = [5,4,3,2,1].map( (rating, index) => {
+        return (
+     <Fragment>
+        <input type="radio" value={rating} checked={review.rating == rating} name='rating' onChange={() => console.log('onChange')} id={`rating-${rating}`}></input>
+        <label onClick={setRating.bind(this, rating)}></label>
+    </Fragment>
+    )
+})
+    console.log(restaurant.reviews)
   return (
-    <div className='wrapper'>
-        <form onSubmit={props.handleSubmit}>
-            <div>Have an experience with [Restaurant Name]? Share your review!</div>
-            <div className='field'>
-                <input onChange={props.handleChange} value={props.restaurant.review} type="text" name="title" placeholder="Review Title"/>
-            </div>
-            <div className='field'>
-                <input onChange={props.handleChange} type="text" name="description" placeholder="Review Description"/>
-            </div>
-            <div className='field'>
-                <div className='rating-container'>
-                    <div className='rating-title-text'>Rate this restaurant</div>
-                    [Star Rating]
-                </div>
-            </div>
-            <button type='submit'>Submit Your Review</button>
+    <ReviewWrapper>
+        <form onSubmit={handleSubmit}>
+            <ReviewHeadline>Have an experience with {restaurant.name}? Share your review!</ReviewHeadline>
+            <Field>
+            <input onChange={handleChange} type="text" name="description" placeholder="Review Description"/>
+            </Field>
+            <Field>
+                <RatingContainer>
+                    <RatingBoxTitle>Rate this restaurant</RatingBoxTitle>
+                    <RatingBox>
+                    {ratingOptions}
+                    </RatingBox>
+                </RatingContainer>
+                </Field>
+            <SubmitBtn type='submit'>Submit Your Review</SubmitBtn>
         </form>
       
-    </div>
+        </ReviewWrapper>
   )
 }
 
