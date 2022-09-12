@@ -4,6 +4,7 @@ import Header from './Header'
 import styled from 'styled-components'
 import ReviewForm from './ReviewForm'
 import axios from 'axios'
+import Review from './Review'
 
 const Wrapper = styled.div`
   margin-left: auto;
@@ -37,23 +38,22 @@ function Restaurant(props) {
   const [restaurant, setRestaurant] = useState({})
   const [reviews, setReviews] = useState([])
   const [review, setReview] = useState({description:'', rating: 0})
+  const [loaded, setLoaded] = useState(false)
 
   let { id } = useParams();
-  console.log("This is my id", id)
   
-
   useEffect(() => {
    
     fetch(`http://localhost:9293/restaurants/${id}`)
      .then((r) => r.json())
     .then((data) => {
     setRestaurant(data)
-    setReviews(data.included)
+    setReviews(data.reviews)
+    setLoaded(true)
   })
 
     .catch( data => console.log('Error', data) )
 }, [id])
-  console.log(restaurant.review)
 
   const handleChange = (e) => {
     e.preventDefault()
@@ -67,15 +67,18 @@ function Restaurant(props) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    const csrfToken = document.querySelector('[name=csrf-token]').content
-    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
+    //const csrfToken = document.querySelector('[name=csrf-token]').content
+    //axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
 
-    const restaurant_id = restaurant.id
+    const restaurant_id = parseInt(id)
+    console.log(restaurant_id)
 
-    axios.post('http://localhost:9293/reviews', {review, restaurant_id})
+    axios.post('http://localhost:9293/reviews', {...review, restaurant_id})
     .then(resp => {
-      const included = [...restaurant.included, resp.data]
-      setRestaurant({...restaurant, included})
+     // const included = [...restaurant, resp]
+     // console.log(resp)
+     // setRestaurant({...restaurant, included})
+      setReviews([...reviews, resp.data])
       setReview({description:'', rating: 0})
     })
     .catch(resp => {})
@@ -87,13 +90,28 @@ function Restaurant(props) {
       
       setReview({...review, rating})
     }
+
+    let restaurantReviews
+    //if(loaded && restaurant.included) {
+      console.log(reviews)
+     reviews.map((item, index) => {
+      console.log("mapping:", item)
+      return (
+        <Review
+        key={index} 
+        id={item.id}
+        review={item}
+        />
+      )
+    })
+  //}
   return( 
   <Wrapper>
     <Fragment>
     <Column>
     <Main>
      <Header restaurant = {restaurant}/>
-      <div className='reviews'></div>
+      <div className='reviews'>{restaurantReviews}</div>
     </Main>
     </Column>
     <Column>

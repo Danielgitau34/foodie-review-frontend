@@ -115,6 +115,8 @@ const Error = styled.div`
 `
 function ReviewForm({restaurant, review, setRating, handleChange, handleSubmit }) {
 
+    console.log(review)
+
     const ratingOptions = [5,4,3,2,1].map( (rating, index) => {
         return (
      <Fragment>
@@ -123,7 +125,6 @@ function ReviewForm({restaurant, review, setRating, handleChange, handleSubmit }
     </Fragment>
     )
 })
-    console.log(restaurant.reviews)
   return (
     <ReviewWrapper>
         <form onSubmit={handleSubmit}>
