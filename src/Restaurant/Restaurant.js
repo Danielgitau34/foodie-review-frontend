@@ -41,8 +41,11 @@ function Restaurant(props) {
   const [loaded, setLoaded] = useState(false)
 
   let { id } = useParams();
+
+
   
   useEffect(() => {
+   
    
     fetch(`http://localhost:9293/restaurants/${id}`)
      .then((r) => r.json())
@@ -85,22 +88,52 @@ function Restaurant(props) {
 
     
   }
+
+  /*useEffect(() => {
+     async function handleDestroy() {
+       await axios.delete(`http://localhost:9293/reviews/${id}`)
+        .then((data) => {
+          console.log(data)
+          const included = [...reviews]
+          console.log(included)
+          const index = included.findIndex( (data) => data.id == id )
+          included.splice(index, 1)
+    
+          setReviews(included)
+        })
+        .catch( data => console.log('Error', data) )
+      }
+    }, [id])*/
+  const handleDestroy = (id, e) => {
+    e.preventDefault()
+
+   axios.delete(`http://localhost:9293/reviews/${id}`)
+    .then( (data) => {
+      console.log(data)
+      const included = [...reviews]
+      console.log(included)
+      const index = included.findIndex( (data) => data.id == id )
+      included.splice(index, 1)
+
+      setReviews(included)
+    })
+    .catch( data => console.log('Error', data) )
+  }
+
     const setRating = (rating, e) => {
       e.preventDefault()
       
       setReview({...review, rating})
     }
 
-    let restaurantReviews
-    //if(loaded && restaurant.included) {
-      console.log(reviews)
-     reviews.map((item, index) => {
+    let restaurantReviews = reviews.map((item, index) => {
       console.log("mapping:", item)
       return (
         <Review
         key={index} 
         id={item.id}
         review={item}
+        handleDestroy={handleDestroy}
         />
       )
     })
